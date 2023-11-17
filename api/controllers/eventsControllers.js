@@ -49,6 +49,10 @@ exports.getEventById =  (req, res, next) => {
     });
 };
 
+exports.getEventsByType =  (req, res, next) => {
+    //GET EVENTS BY TYPE
+}
+
 exports.createEvent =  (req, res, next) => {
     const event = new Event({
         _id: new mongoose.Types.ObjectId(),
