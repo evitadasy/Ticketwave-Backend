@@ -6,6 +6,7 @@ const bookingSchema = mongoose.Schema({
     quantity: {type: Number, default: 1}
 });
 
+
 // // Set versionKey to false to exclude the __v field
 // bookingSchema.set('versionKey', false);
 
