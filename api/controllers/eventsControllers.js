@@ -1,6 +1,7 @@
 const Event = require("../models/event");
 const mongoose = require("mongoose");
 
+
 exports.getAllEvents = (req, res, next) => {
     Event.find() //find all elements
     .exec() 
@@ -11,7 +12,9 @@ exports.getAllEvents = (req, res, next) => {
                 return {
                     _id: doc._id,
                     title: doc.title,
-                    price: doc.price
+                    price: doc.price,
+                    type: doc.type,
+                    description: doc.description
                     }
             })
         };
@@ -49,9 +52,27 @@ exports.getEventById =  (req, res, next) => {
     });
 };
 
-exports.getEventsByType =  (req, res, next) => {
-    //GET EVENTS BY TYPE
-}
+
+exports.getEventByType =  (req, res, next) => {
+    const type = req.params.type;
+
+    Event.find({ type: type }).exec()
+    .then(docs => {
+        if(docs.length > 0){
+            res.status(200).json({
+                events: docs
+            });
+        } else {
+            res.status(404).json({
+                message: 'No valid entry found for provided type'
+            });
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({error: err});
+    });
+};
 
 exports.createEvent =  (req, res, next) => {
     const event = new Event({
@@ -78,6 +99,7 @@ exports.createEvent =  (req, res, next) => {
         });
     });
 };
+
 
 // exports.updateEvent = (req, res, next) => {
 //     //to change data
