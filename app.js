@@ -1,25 +1,17 @@
 const express = require('express')
 const app = express();
+const PORT = process.env.PORT || 3000;
+
+
 const morgan = require('morgan');
-const port = process.env.PORT || 3000;
+
+
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require('dotenv').config()
 
 const eventsRoutes = require('./api/routes/events');
 const bookingsRoutes = require('./api/routes/bookings');
-
-//database connection
-mongoose.connect(process.env.MONGODB_URI)
-.then(() => {
-    app.listen(port, () => {
-        console.log("listening for requests");
-    })
-  console.log('Connected to MongoDB');
-})
-.catch((error) => {
-  console.error('MongoDB connection error:', error.message);
-});
 
 // Middleware for logging HTTP request && parsing incoming request bodies && handling CORS and setting response headers
 app.use(morgan('dev'));
@@ -37,11 +29,24 @@ app.use((req, res, next) => {
     next();
 });
 
+//database connection
+mongoose.connect(process.env.MONGODB_URI)
+.then(() => {
+    app.listen(PORT, () => {
+        console.log("listening for requests");
+    })
+  console.log('Connected to MongoDB');
+})
+.catch((error) => {
+  console.error('MongoDB connection error:', error.message);
+});
+
 
 // Routes for handling specific resource endpoints
 app.use('/events', eventsRoutes);
 app.use('/bookings', bookingsRoutes);
 
+app.get('/', (req, res) => {res.json({message:"Hello"})})
 
 // Middleware for handling 404 (Not Found) errors
 app.use((req, res, next) => {
@@ -60,6 +65,6 @@ app.use((error, req, res, next) => {
 });
 
 
-module.exports = app;
+// module.exports = app;
 
 
