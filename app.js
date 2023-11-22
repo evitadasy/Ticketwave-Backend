@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express();
 const morgan = require('morgan');
+const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require('dotenv').config()
@@ -11,6 +12,9 @@ const bookingsRoutes = require('./api/routes/bookings');
 //database connection
 mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
+    app.listen(port, () => {
+        console.log("listening for requests");
+    })
   console.log('Connected to MongoDB');
 })
 .catch((error) => {
