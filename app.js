@@ -1,17 +1,28 @@
 const express = require('express')
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-
 const morgan = require('morgan');
-
-
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require('dotenv').config()
 
 const eventsRoutes = require('./api/routes/events');
 const bookingsRoutes = require('./api/routes/bookings');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+
+//database connection
+mongoose.connect(process.env.MONGODB_URI)
+.then(() => {
+    app.listen(PORT, () => {
+        console.log("listening for requests");
+    })
+  console.log('Connected to MongoDB');
+})
+.catch((error) => {
+  console.error('MongoDB connection error:', error.message);
+});
+
 
 // Middleware for logging HTTP request && parsing incoming request bodies && handling CORS and setting response headers
 app.use(morgan('dev'));
@@ -27,18 +38,6 @@ app.use((req, res, next) => {
         return res.status(200).json({});
     }
     next();
-});
-
-//database connection
-mongoose.connect(process.env.MONGODB_URI)
-.then(() => {
-    app.listen(PORT, () => {
-        console.log("listening for requests");
-    })
-  console.log('Connected to MongoDB');
-})
-.catch((error) => {
-  console.error('MongoDB connection error:', error.message);
 });
 
 
@@ -65,6 +64,5 @@ app.use((error, req, res, next) => {
 });
 
 
-// module.exports = app;
 
 
