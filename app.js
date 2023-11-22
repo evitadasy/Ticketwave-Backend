@@ -9,7 +9,7 @@ const eventsRoutes = require('./api/routes/events');
 const bookingsRoutes = require('./api/routes/bookings');
 
 //database connection
-mongoose.connect("mongodb+srv://admin23:admin23@cluster0.9fsp8hc.mongodb.net/bookify?retryWrites=true&w=majority")
+mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
   console.log('Connected to MongoDB');
 })
