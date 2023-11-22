@@ -9,7 +9,7 @@ const eventsRoutes = require('./api/routes/events');
 const bookingsRoutes = require('./api/routes/bookings');
 
 //database connection
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect("***REMOVED***")
 .then(() => {
   console.log('Connected to MongoDB');
 })
