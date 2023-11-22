@@ -7,16 +7,7 @@ exports.getAllEvents = (req, res, next) => {
     .exec() 
     .then(docs => {
         const response = {
-            count: docs.length,
-            events: docs.map(doc => {
-                return {
-                    _id: doc._id,
-                    title: doc.title,
-                    price: doc.price,
-                    type: doc.type,
-                    description: doc.description
-                    }
-            })
+            events: docs
         };
         // console.log(docs);
         res.status(200).json(response);
