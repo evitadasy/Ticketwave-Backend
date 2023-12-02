@@ -6,6 +6,8 @@ require('dotenv').config()
 
 const eventsRoutes = require('./api/routes/events');
 const bookingsRoutes = require('./api/routes/bookings');
+const citiesRoutes = require('./api/routes/cities');
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -44,6 +46,8 @@ app.use((req, res, next) => {
 // Routes for handling specific resource endpoints
 app.use('/events', eventsRoutes);
 app.use('/bookings', bookingsRoutes);
+app.use('/cities', citiesRoutes);
+
 
 app.get('/', (req, res) => {res.json({message:"Hello"})})
 
