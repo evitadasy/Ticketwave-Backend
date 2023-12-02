@@ -3,29 +3,18 @@ const Booking = require("../models/booking");
 const mongoose = require("mongoose");
 
 exports.getAllBookings = (req, res, next) => {
-    Booking.find() //find all elements
-      .populate('event') // adds all the properties of each event
-      .exec() // to get a true promise
-      .then((docs) => {
-        const response = {
-          count: docs.length,
-          bookings: docs.map((doc) => {
-            return {
-              event: doc.event,
-              quantity: doc.quantity,
-              _id: doc._id
-            };
-          }),
-        };
-        console.log(docs);
-        res.status(200).json(response);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json({
-          error: err,
-        });
+  Booking.find() //find all elements
+    .populate('event') // adds all the properties of each event
+    .exec() // to get a true promise
+    .then((bookings) => {
+      res.status(200).json(bookings);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        error: err,
       });
+    });
   };
 
   exports.getBookingById = (req, res, next) => {
@@ -37,10 +26,7 @@ exports.getAllBookings = (req, res, next) => {
                 message: "Booking NOT found",
               });
           }
-          res.status(200).json({
-              message: "Booking was fetched",
-              booking: booking
-            });
+          res.status(200).json(booking);
       })
       .catch((err) => {
         console.log(err);
@@ -83,7 +69,6 @@ exports.getAllBookings = (req, res, next) => {
       })
       //we then execute all other steps for creating a booking
       .then((result) => {
-        console.log(result);
         res.status(201).json({
           message: "Booking was created",
           createdBooking: {
