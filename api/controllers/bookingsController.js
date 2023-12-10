@@ -50,42 +50,64 @@ exports.getAllBookings = (req, res, next) => {
   };
 
   exports.createBooking = (req, res, next) => {
-    //first we check if the event exists before we try to save it
-    Event.findById(req.body.eventId)
-      .then((event) => {
-        //if event is null
-        if (!event) {
-          return res.status(404).json({
-            message: "Event NOT found",
-          });
-        }
-        //if event exists then all the subsequent code will executed
-        const newBooking = new Booking({
-          _id: new mongoose.Types.ObjectId(),
-          quantity: req.body.quantity,
-          event: req.body.eventId,
-        });
-        return newBooking.save();
-      })
-      //we then execute all other steps for creating a booking
-      .then((result) => {
-        res.status(201).json({
+  const newBooking = new Booking({
+      _id: new mongoose.Types.ObjectId(),
+      quantity: req.body.quantity,
+      event: req.body.event,
+  });
+  newBooking
+  .save()
+  .then((createdBooking) => {
+      res.status(201).json({
           message: "Booking was created",
           createdBooking: {
-            _id: result._id,
-            event: result.event,
-            quantity: result.quantity,
+              _id: createdBooking._id,
+              event: createdBooking.event,
+              quantity: createdBooking.quantity,
           }
-        });
-      })
-      // if we want to create a booking for a event that does not exists then we execute the below code
-      .catch((err) => {
-        console.log(err);
-        if (!res.headersSent) {
-          // Check if headers have been sent before sending an error response
-          res.status(500).json({
-            error: err,
-          });
-        }
       });
-  };
+  })
+  .catch((err) => {
+      console.log(err);
+      if (!res.headersSent) {
+          res.status(500).json({
+              error: err,
+          });
+      }
+  });
+};
+
+
+  // exports.createBooking = (req, res, next) => {
+  //   //first we check if the event exists before we try to save it
+  //   Event.findById(req.body.eventId)
+  //     .then((event) => {
+  //       //if event is null
+  //       if (!event) {
+  //         return res.status(404).json({
+  //           message: "Event NOT found",
+  //         });
+  //       }
+  //       //if event exists then all the subsequent code will executed
+  //       const newBooking = new Booking({
+  //         _id: new mongoose.Types.ObjectId(),
+  //         quantity: req.body.quantity,
+  //         event: req.body.eventId,
+  //       });
+  //       return newBooking.save();
+  //     })
+  //     //we then execute all other steps for creating a booking
+  //     .then((newBooking) => {
+  //       res.status(201).json({newBooking});
+  //     })
+  //     // if we want to create a booking for a event that does not exists then we execute the below code
+  //     .catch((err) => {
+  //       console.log(err);
+  //       if (!res.headersSent) {
+  //         // Check if headers have been sent before sending an error response
+  //         res.status(500).json({
+  //           error: err,
+  //         });
+  //       }
+  //     });
+  // };
