@@ -53,7 +53,7 @@ Example `.env` file:
 MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/<database>?retryWrites=true&w=majority
 ```
 
-## API Endopoints
+## API Endpoints
 
 ### Cities
 
