@@ -1,6 +1,6 @@
-# Bookify Backend
+# Ticketwave Backend
 
-Welcome to the Bookify backend repository! This Node.js application serves as the backend for the Bookify-Frontend app, utilizing Express.js for handling API routes and MongoDB Atlas as the database. Follow the instructions below to install and implement the code.
+Welcome to the Ticketwave backend repository! This Node.js application serves as the backend for the Ticketwave-Frontend app, utilizing Express.js for handling API routes and MongoDB Atlas as the database. Follow the instructions below to install and implement the code.
 
 ## Table of Contents
 
@@ -14,13 +14,13 @@ Welcome to the Bookify backend repository! This Node.js application serves as th
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/evitadasy/Bookify-Backend.git
+    git clone https://github.com/evitadasy/Ticketwave-Backend.git
     ```
 
 2. Navigate to the project directory:
 
     ```bash
-    cd bookify-backend
+    cd ticketwave-backend
     ```
 
 3. Install dependencies:
@@ -77,4 +77,4 @@ Feel free to inspect the code in the routes directory to understand available en
 
 ## Deployment
 
-The Bookify backend is currently deployed on Render at https://bookify-zm4t.onrender.com. Ensure that you update your frontend application to make requests to this endpoint.
+The Ticketwave backend is currently deployed on Render at https://bookify-zm4t.onrender.com. Ensure that you update your frontend application to make requests to this endpoint.
